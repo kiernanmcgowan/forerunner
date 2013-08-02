@@ -1,0 +1,11 @@
+{
+  "name": "titan",
+  "version": "0.0.1",
+  "description": "All of your jobs can be solved by a Titan",
+  "dependencies": {
+    "socket.io": "0.9.16",
+    "node-uuid": "1.4.x",
+    "socket.io": "0.9.x",
+    "underscore": "1.4.4"
+  }
+}
