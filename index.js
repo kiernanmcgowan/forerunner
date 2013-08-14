@@ -1,6 +1,7 @@
 module.exports.titan = require('./lib/titan');
 
-module.exports.worker = {
-  base: require('./lib/worker'),
-  link_scrape: require('./lib/builtins/link_scrape')
+module.exports.worker = require('./lib/worker');
+
+module.exports.builtin = {
+  get_hrefs: require('./lib/builtins/get_hrefs')
 };

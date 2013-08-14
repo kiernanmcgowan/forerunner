@@ -7,6 +7,8 @@
     "node-uuid": "1.4.x",
     "underscore": "1.4.4",
     "async": "0.2.9",
-    "socket.io-client": "~0.9.16"
+    "socket.io-client": "0.9.16",
+    "request": "2.26.0",
+    "cheerio": "0.12.1"
   }
 }
