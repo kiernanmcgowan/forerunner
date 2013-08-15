@@ -1,7 +1,7 @@
 {
-  "name": "titan",
+  "name": "harbinger",
   "version": "0.0.1",
-  "description": "All of your jobs can be solved by a Titan",
+  "description": "All of your jobs can be solved by harbinger",
   "dependencies": {
     "socket.io": "0.9.x",
     "node-uuid": "1.4.x",
@@ -9,6 +9,8 @@
     "async": "0.2.9",
     "socket.io-client": "0.9.16",
     "request": "2.26.0",
-    "cheerio": "0.12.1"
+    "cheerio": "0.12.1",
+    "tar": "0.1.18",
+    "fstream": "0.1.24"
   }
 }
