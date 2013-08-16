@@ -18,12 +18,11 @@ harbinger.start({}, function() {
 
   harbinger.postJob('link_scrape', function(id, data) {
     console.log('link_scrape is done: ' + id);
-    console.log(data);
     for (var i = 0; i < data.length; i++) {
       createJob(data[i]);
     }
   });
 
-  createJob('http://news.ycombinator.com');
+  createJob('http://www.cnn.com/');
 
 });
