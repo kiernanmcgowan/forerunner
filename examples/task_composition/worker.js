@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-// example - web crawler worker
-// simple, just start the web scrape worker
+// example - harbinger task composition example
+// creates a job that is a mixture of several different tasks
 
-var worker = require('../../../index').worker;
-var fetch = require('../../../index').builtin.fetch;
-var targz = require('../../../index').builtin.targz;
+var worker = require('../../index').worker;
+var fetch = require('../../index').builtin.fetch;
+var targz = require('../../index').builtin.targz;
 
 // register job handlers
 worker.registerJobHandler('fetch', fetch);

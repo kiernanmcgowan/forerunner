@@ -2,7 +2,7 @@
 
 // example - harbinger web crawl
 
-var harbinger = require('../../../index').harbinger;
+var harbinger = require('../../index').harbinger;
 
 // basic set up
 harbinger.start({}, function() {

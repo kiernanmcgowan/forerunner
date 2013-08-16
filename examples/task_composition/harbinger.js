@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-// example - harbinger web crawl
+// example - harbinger task composition example
+// creates a job that is a mixture of several different tasks
 
-var harbinger = require('../../../index').harbinger;
+var harbinger = require('../../index').harbinger;
 var path = require('path');
 
 // basic set up
