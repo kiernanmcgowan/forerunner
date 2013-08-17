@@ -7,8 +7,10 @@ var harbinger = require('../../index').harbinger;
 // basic set up
 harbinger.start({}, function() {
   var createJob = function(url) {
-    harbinger.assignJob('link_scrape', {url: url}, function(err, status) {
+    process.nextTick(function() {
+      harbinger.assignJob('link_scrape', {url: url}, function(err, status) {
 
+      });
     });
   };
 
@@ -19,7 +21,9 @@ harbinger.start({}, function() {
   harbinger.postJob('link_scrape', function(id, data) {
     console.log('link_scrape is done: ' + id);
     for (var i = 0; i < data.length; i++) {
-      createJob(data[i]);
+      harbinger.assignJob('link_scrape', {url: data[i]}, function(err, status) {
+
+      });
     }
   });
 
