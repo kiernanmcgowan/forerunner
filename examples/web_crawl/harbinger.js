@@ -3,13 +3,13 @@
 // example - harbinger web crawl
 
 var harbinger = require('../../index').harbinger;
+var redisQueue = require('harbinger-redis');
+var _ = require('underscore');
 
 // basic set up
-harbinger.start({}, function() {
+harbinger.start({queue: (new redisQueue())}, function() {
   var createJob = function(url) {
-    console.log('adfasdf');
     process.nextTick(function() {
-      console.log('creating job');
       harbinger.assignJob('link_scrape', {url: url}, function(err, status) {
 
       });
@@ -17,7 +17,7 @@ harbinger.start({}, function() {
   };
 
   harbinger.preJob('link_scrape', function(id, data) {
-    console.log('queued: ' + data.url);
+    //console.log('queued: ' + data.url);
   });
 
   harbinger.postJob('link_scrape', function(id, data) {
