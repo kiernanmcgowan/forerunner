@@ -7,7 +7,9 @@ var harbinger = require('../../index').harbinger;
 // basic set up
 harbinger.start({}, function() {
   var createJob = function(url) {
+    console.log('adfasdf');
     process.nextTick(function() {
+      console.log('creating job');
       harbinger.assignJob('link_scrape', {url: url}, function(err, status) {
 
       });
@@ -26,6 +28,8 @@ harbinger.start({}, function() {
       });
     }
   });
+
+  console.log('derp');
 
   createJob('http://www.cnn.com/');
 
