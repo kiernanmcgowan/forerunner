@@ -3,34 +3,38 @@
 // example - harbinger web crawl
 
 var harbinger = require('../../index').harbinger;
-var redisQueue = require('harbinger-redis');
+var redisQueue = require('harbinger-redis-queue');
+var pgStore = require('harbinger-postgres-store');
 var _ = require('underscore');
 
-// basic set up
-harbinger.start({queue: (new redisQueue())}, function() {
-  var createJob = function(url) {
-    process.nextTick(function() {
-      harbinger.assignJob('link_scrape', {url: url}, function(err, status) {
+// set up the db
+var dbOpts = {
+  db: {
+    user: 'data',
+    password: 'moardata',
+    database: 'data'
+  }
+};
 
-      });
-    });
+var store = new pgStore(dbOpts, function(err) {
+
+  var harbingerOpts = {
+    queue: (new redisQueue()),
+    store: store
   };
 
-  harbinger.preJob('link_scrape', function(id, data) {
-    //console.log('queued: ' + data.url);
-  });
+  harbinger.start(harbingerOpts, function() {
 
-  harbinger.postJob('link_scrape', function(id, data) {
-    console.log('link_scrape is done: ' + id);
-    for (var i = 0; i < data.length; i++) {
-      harbinger.assignJob('link_scrape', {url: data[i]}, function(err, status) {
+   harbinger.postJob('link_scrape', function(id, data) {
+     console.log('link_scrape is done: ' + id);
+     for (var i = 0; i < data.length; i++) {
+       harbinger.assignJob('link_scrape', {url: data[i]});
+     }
+   });
 
-      });
-    }
-  });
+   harbinger.assignJob('link_scrape', {url: 'http:///news.ycombinator.com/news'});
 
-  console.log('derp');
-
-  createJob('http://www.cnn.com/');
+ });
 
 });
+
