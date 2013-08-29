@@ -1,6 +1,6 @@
 {
   "name": "harbinger",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Harbinger is a distributed job queue framework",
   "dependencies": {
     "socket.io": "0.9.x",
