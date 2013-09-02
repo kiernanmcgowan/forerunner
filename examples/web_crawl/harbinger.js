@@ -6,15 +6,12 @@ var harbinger = require('../../index').harbinger;
 var redisQueue = require('harbinger-redis-queue');
 var pgStore = require('harbinger-postgres-store');
 var _ = require('underscore');
+var derconf = require('derconf');
+
+var config = derconf();
 
 // set up the db
-var dbOpts = {
-  db: {
-    user: 'data',
-    password: 'moardata',
-    database: 'data'
-  }
-};
+var dbOpts = {db: config.postgres};
 
 var store = new pgStore(dbOpts, function(err) {
 

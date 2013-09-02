@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "harbinger-redis-queue": "0.0.x",
-    "harbinger-postgres-store": "0.0.x"
+    "harbinger-postgres-store": "0.0.x",
+    "derconf": "0.0.x"
   }
 }
