@@ -128,7 +128,7 @@ function exampleJob(id, type, data, callback) {
 ```
 
 
-LICENCE
+LICENSE
 ---
 
 <MIT>
