@@ -32,7 +32,7 @@ var store = new pgStore(dbOpts, function(err) {
      }
    });
 
-   harbinger.assignJob('link_scrape', {url: 'http:///news.ycombinator.com/news'});
+   harbinger.assignJob('link_scrape', {url: 'http://news.ycombinator.com/news'});
 
  });
 
