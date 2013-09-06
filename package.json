@@ -1,7 +1,7 @@
 {
-  "name": "harbinger",
+  "name": "forerunner",
   "version": "0.0.7",
-  "description": "Harbinger is a distributed job queue framework",
+  "description": "forerunner is a distributed job queue framework",
   "dependencies": {
     "socket.io": "0.9.x",
     "node-uuid": "1.4.x",
@@ -14,8 +14,8 @@
     "fstream": "0.1.24"
   },
   "devDependencies": {
-    "harbinger-redis-queue": "0.0.x",
-    "harbinger-postgres-store": "0.0.x",
+    "forerunner-redis-queue": "0.0.x",
+    "forerunner-postgres-store": "0.0.x",
     "derconf": "0.0.x"
   }
 }

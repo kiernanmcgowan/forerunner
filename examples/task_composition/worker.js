@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// example - harbinger task composition example
+// example - forerunner task composition example
 // creates a job that is a mixture of several different tasks
 
 var worker = require('../../index').worker;
@@ -22,5 +22,5 @@ worker.registerJobHandler('download_and_archive', worker.compose([
 ]));
 
 // start the worker
-var harbingerLocation = 'http://localhost:21211';
-worker.start(harbingerLocation);
+var forerunnerLocation = 'http://localhost:21211';
+worker.start(forerunnerLocation);

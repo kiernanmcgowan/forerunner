@@ -1,4 +1,4 @@
-module.exports.harbinger = require('./lib/harbinger');
+module.exports.forerunner = require('./lib/forerunner');
 
 module.exports.worker = require('./lib/worker');
 
