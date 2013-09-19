@@ -22,7 +22,7 @@ var store = new pgStore(dbOpts, function(err) {
 
   forerunner.start(forerunnerOpts, function() {
 
-   forerunner.postJob('link_scrape', function(id, data) {
+  forerunner.postJob('link_scrape', function(id, data) {
      console.log('link_scrape is done: ' + id);
      for (var i = 0; i < data.length; i++) {
        forerunner.assignJob('link_scrape', {url: data[i]});
