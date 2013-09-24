@@ -1,6 +1,6 @@
 {
   "name": "forerunner",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "forerunner is a distributed job queue framework",
   "dependencies": {
     "socket.io": "0.9.x",
@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "forerunner-redis-queue": "0.0.x",
-    "forerunner-redis-collector": "0.0.x",
     "forerunner-postgres-store": "0.0.x",
     "derconf": "0.0.x"
   }
