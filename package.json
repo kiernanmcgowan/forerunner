@@ -1,7 +1,19 @@
 {
   "name": "forerunner",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "forerunner is a distributed job queue framework",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/dropdownmenu/forerunner.git"
+  },
+  "keywords": [
+    "forerunner",
+    "job",
+    "queue",
+    "distributed",
+    "worker"
+  ],
   "dependencies": {
     "socket.io": "0.9.x",
     "underscore": "1.4.4",
