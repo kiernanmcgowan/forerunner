@@ -20,18 +20,19 @@ var store = new pgStore(dbOpts, function(err) {
     store: store
   };
 
-  forerunner.start(forerunnerOpts, function() {
+  forerunner.start(forerunnerOpts);
 
-  forerunner.postJob('link_scrape', function(id, data) {
+  forerunner.onComplete('link_scrape', function(id, data) {
      console.log('link_scrape is done: ' + id);
      for (var i = 0; i < data.links.length; i++) {
-       forerunner.assignJob('link_scrape', {url: data[i]});
+       console.log(data.links[i]);
+       forerunner.assignJob('link_scrape', {url: data.links[i]});
      }
    });
 
-   forerunner.assignJob('link_scrape', {url: 'http://news.ycombinator.com/news'});
+  console.log('assinging job');
+  forerunner.assignJob('link_scrape', {url: 'http://cnn.com/'});
 
- });
 
 });
 
