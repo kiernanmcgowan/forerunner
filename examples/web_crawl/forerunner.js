@@ -25,14 +25,10 @@ var store = new pgStore(dbOpts, function(err) {
   forerunner.onComplete('link_scrape', function(id, data) {
      console.log('link_scrape is done: ' + id);
      for (var i = 0; i < data.links.length; i++) {
-       console.log(data.links[i]);
-       forerunner.assignJob('link_scrape', {url: data.links[i]});
+       forerunner.assignJob('link_scrape', {url: data.links[i], timeout: 10000});
      }
    });
 
-  console.log('assinging job');
-  forerunner.assignJob('link_scrape', {url: 'http://cnn.com/'});
-
-
+  forerunner.assignJob('link_scrape', {url: 'https://news.ycombinator.com/', timeout: 10000});
 });
 
