@@ -23,11 +23,11 @@ var store = new pgStore(dbOpts, function(err) {
   forerunner.start(forerunnerOpts);
 
   forerunner.onComplete('link_scrape', function(id, data) {
-     console.log('link_scrape is done: ' + id);
-     for (var i = 0; i < data.links.length; i++) {
-       forerunner.assignJob('link_scrape', {url: data.links[i], timeout: 10000});
-     }
-   });
+    console.log('link_scrape is done: ' + id);
+    for (var i = 0; i < data.links.length; i++) {
+      forerunner.assignJob('link_scrape', {url: data.links[i], timeout: 10000});
+    }
+  });
 
   forerunner.assignJob('link_scrape', {url: 'https://news.ycombinator.com/', timeout: 10000});
 });
