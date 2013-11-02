@@ -16,7 +16,7 @@ var dbOpts = {db: config.postgres};
 var store = new pgStore(dbOpts, function(err) {
 
   var forerunnerOpts = {
-    queue: (new redisQueue()),
+    queue: (new redisQueue({jobQueue: 'forerunner_crawl_queue'})),
     store: store
   };
 

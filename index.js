@@ -10,8 +10,5 @@ module.exports.builtin = {
     key_map: require('./lib/builtins/tasks/key_map'),
     pluck_data: require('./lib/builtins/tasks/pluck_data'),
     word_count: require('./lib/builtins/tasks/word_count')
-  },
-  plugins: {
-    url_rate_limit: require('./lib/builtins/plugins/url_rate_limit')
   }
 };
