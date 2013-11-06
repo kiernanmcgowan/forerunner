@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+// simple script that starts up a forerunner proxy
+
+var proxy = require('../index').proxy;
+proxy.start();
