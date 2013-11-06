@@ -2,6 +2,8 @@ module.exports.forerunner = require('./lib/forerunner');
 
 module.exports.worker = require('./lib/worker');
 
+module.exports.proxy = require('./lib/proxy');
+
 module.exports.builtin = {
   tasks: {
     get_hrefs: require('./lib/builtins/tasks/get_hrefs'),
