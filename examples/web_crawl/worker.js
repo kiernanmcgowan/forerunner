@@ -10,5 +10,5 @@ var link_scrape = require('../../index').builtin.tasks.get_hrefs;
 worker.registerJobHandler('link_scrape', link_scrape);
 
 // start the worker
-var forerunnerLocation = 'http://localhost:2718';
+var forerunnerLocation = process.env.FR_LOCATION || 'http://localhost:2718';
 worker.start(forerunnerLocation);

@@ -2,9 +2,11 @@
 
 var forerunner = require('../../index').forerunner;
 
+var proxyLocation = process.env.FR_PROXY || 'http://localhost:2718';
+
 // basic set up with defaults
 forerunner.start({
-  proxyLocation: 'http://localhost:2718'
+  proxyLocation: proxyLocation
 });
 
 // post job hook
