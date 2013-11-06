@@ -9,6 +9,7 @@ module.exports.builtin = {
     targz: require('./lib/builtins/tasks/targz'),
     key_map: require('./lib/builtins/tasks/key_map'),
     pluck_data: require('./lib/builtins/tasks/pluck_data'),
-    word_count: require('./lib/builtins/tasks/word_count')
+    word_count: require('./lib/builtins/tasks/word_count'),
+    ping: require('./lib/builtins/tasks/ping')
   }
 };
