@@ -80,13 +80,13 @@ worker.registerJobHandler('targz', targz);
 var composedJob = worker.compose([
   // execute the 'fetch' job handler
   'fetch',
-  function(id, type, data, callback) {
+  function(id, data, callback) {
     // alter the keys of the returned values to match the targz call
     callback(null, {origin: data.destination, destination: data.tarDestination});
   },
   // execute the 'targz' job handler
   'targz',
-  function(id, type, data, callback) {
+  function(id, data, callback) {
     // ... do some custom logic here
     callback(err, newDataFromCustomLogic);
   }
