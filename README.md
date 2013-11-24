@@ -1,6 +1,8 @@
 forerunner
 ===
 
+[![Build Status](https://travis-ci.org/dropdownmenu/forerunner.png?branch=master)](https://travis-ci.org/dropdownmenu/forerunner)
+
 forerunner is a distributed job queue framework. It consists of a central job queue and a pool of workers that can be configured to take on a wide variety of jobs. Workers can be spun up and down independent of the manager, allowing for your platform to meet your specific demands.
 
 forerunner has a growing set of builtin jobs, the ability to define your own, and the power to composite many jobs together. This flexibility allows for a wide variety of tasks to be undertaken with ease and efficiency.
