@@ -21,8 +21,6 @@ The forerunner platform is made up of two main parts, the manager and the worker
 // manager
 var forerunner = require('forerunner').forerunner;
 
-var forerunner = require('forerunner').forerunner;
-
 // basic set up with defaults
 // listens on port 2718
 forerunner.start();
