@@ -13,5 +13,11 @@ module.exports.builtin = {
     pluck_data: require('./lib/builtins/tasks/pluck_data'),
     word_count: require('./lib/builtins/tasks/word_count'),
     ping: require('./lib/builtins/tasks/ping')
+  },
+  store: {
+    memory: require('./lib/builtins/store/memory_store')
+  },
+  queue: {
+    memory: require('./lib/builtins/queue/memory_queue')
   }
 };
