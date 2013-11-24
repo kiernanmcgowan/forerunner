@@ -1,6 +1,6 @@
 {
   "name": "forerunner",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "forerunner is a distributed job queue framework",
   "license": "MIT",
   "repository": {
@@ -32,6 +32,7 @@
   "devDependencies": {
     "forerunner-redis-queue": "0.0.x",
     "forerunner-queue-tests": "0.0.x",
+    "forerunner-store-tests": "0.0.x",
     "forerunner-postgres-store": "0.0.x",
     "forerunner-redis-collector": "0.0.x",
     "derconf": "0.0.x"
