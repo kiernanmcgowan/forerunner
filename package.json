@@ -1,6 +1,6 @@
 {
   "name": "forerunner",
-  "version": "0.2.1",
+  "version": "0.2.5",
   "description": "forerunner is a distributed job queue framework",
   "license": "MIT",
   "repository": {
@@ -26,8 +26,13 @@
     "robots": "0.9.2",
     "node-uuid": "1.4.1"
   },
+  "scripts": {
+    "test": "node test/test.js"
+  },
   "devDependencies": {
     "forerunner-redis-queue": "0.0.x",
+    "forerunner-queue-tests": "0.0.x",
+    "forerunner-store-tests": "0.0.x",
     "forerunner-postgres-store": "0.0.x",
     "forerunner-redis-collector": "0.0.x",
     "derconf": "0.0.x"

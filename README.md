@@ -1,7 +1,7 @@
 forerunner
 ===
 
-> Heads Up! forerunner is in active development. Expect things to change quickly!
+[![Build Status](https://travis-ci.org/dropdownmenu/forerunner.png?branch=master)](https://travis-ci.org/dropdownmenu/forerunner)
 
 forerunner is a distributed job queue framework. It consists of a central job queue and a pool of workers that can be configured to take on a wide variety of jobs. Workers can be spun up and down independent of the manager, allowing for your platform to meet your specific demands.
 
@@ -22,24 +22,19 @@ The forerunner platform is made up of two main parts, the manager and the worker
 var forerunner = require('forerunner').forerunner;
 
 // basic set up with defaults
-forerunner.start(function() {
+// listens on port 2718
+forerunner.start();
 
-  // pre job hook
-  forerunner.preJob('get_hrefs', function(id, data) {
-    console.log('queued: ' + data.url);
-  });
+// post job hook
+forerunner.onComplete('ping', function(id, data) {
+  console.log('ping\'ed worker with job id: ' + id);
+});
 
-  // post job hook
-  forerunner.postJob('get_hrefs', function(id, data) {
-    console.log('link_scrape is done: ' + id);
-    console.log(data);
-  });
-
-  // assign a new job to the worker pool
-  forerunner.assignJob('get_hrefs', {url: 'http://news.ycombinator.com'}, function(err, status) {
-    console.log('job queued');
-  });
-
+// assign a new job to the worker pool
+forerunner.assignJob('ping', {foo: 'bar'}, function(err, status) {
+  if (err) {
+    console.log('failed to add job initial ping job');
+  }
 });
 
 ```
@@ -48,16 +43,13 @@ forerunner.start(function() {
 ```
 // worker
 var worker = require('forerunner').worker;
-// use a builtin task
-var get_hrefs = require('forerunner').builtin.get_hrefs;
+var ping = require('forerunner').builtin.tasks.ping;
 
-// register a job handler for the scraping
-worker.registerJobHandler('get_hrefs', get_hrefs);
+worker.registerJobHandler('ping', ping);
 
-// start the worker - this is the default location
-var forerunnerLocation = 'http://localhost:21211';
+// start the worker
+var forerunnerLocation = 'http://localhost:2718';
 worker.start(forerunnerLocation);
-
 ```
 
 Running both of these scripts will results in the manager telling the worker to execute the `get_href` task with a given payload. The job is sent off to the worker which will execute the task and return the results to the manager.
@@ -88,13 +80,13 @@ worker.registerJobHandler('targz', targz);
 var composedJob = worker.compose([
   // execute the 'fetch' job handler
   'fetch',
-  function(id, type, data, callback) {
+  function(id, data, callback) {
     // alter the keys of the returned values to match the targz call
     callback(null, {origin: data.destination, destination: data.tarDestination});
   },
   // execute the 'targz' job handler
   'targz',
-  function(id, type, data, callback) {
+  function(id, data, callback) {
     // ... do some custom logic here
     callback(err, newDataFromCustomLogic);
   }
@@ -114,9 +106,8 @@ A job is a function that has the following pattern:
 
 
 ```
-function exampleJob(id, type, data, callback) {
+function exampleJob(id, data, callback) {
   // id - the assigned job id
-  // type - the current job type (what was supplied to registerJobHandler)
   // data - the job data to work will
   // callback(err, results) - callback to be called when the job is done
   //                        - if err is not falsely then the job will be marked as failed and NO results will be returned to the manager
