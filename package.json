@@ -35,6 +35,7 @@
     "forerunner-store-tests": "0.0.x",
     "forerunner-postgres-store": "0.0.x",
     "forerunner-redis-collector": "0.0.x",
-    "derconf": "0.0.x"
+    "derconf": "0.0.x",
+    "vows": "~0.7.0"
   }
 }
