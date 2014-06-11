@@ -54,15 +54,11 @@ var runTests = function() {
     console.log('tests complete');
     process.exit();
   }
-  fn(function(err, newWorker) {
-    if (newWorker) {
-      // also make sure the worker was killed off
-      //reanimate();
-    } else {
-      process.nextTick(function() {
-        runTests();
-      });
-    }
+  fn(function(err) {
+    console.log(err);
+    process.nextTick(function() {
+      runTests();
+    });
   });
 };
 

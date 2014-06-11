@@ -5,9 +5,6 @@ var async = require('async');
 var _ = require('underscore');
 var assert = require('assert');
 
-// hooray multiprocess testing!
-var cluster = require('cluster');
-
 var sampleData = [];
 
 var worker = require('../index').worker;
@@ -47,16 +44,6 @@ function testModule(testCallbacks) {
           assert.isObject(topic);
           assert.equal('bar', topic.out);
         }
-      }
-    }
-  })
-  .addBatch({
-    'Manager tokens': {
-      topic: function() {
-        cluster.setupMaster({
-          exec: './subprocess/worker.js'
-        });
-        cluster.fork();
       }
     }
   })
