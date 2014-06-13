@@ -4,9 +4,14 @@ var vows = require('vows');
 var async = require('async');
 var _ = require('underscore');
 var assert = require('assert');
+var uuid = require('node-uuid');
+var path = require('path');
+var eventsModule = require('events');
+var events = new eventsModule.EventEmitter();
 
 // hooray multiprocess testing!
 var cluster = require('cluster');
+var io = require('socket.io');
 
 var uuidToSend;
 var workerSocket;
@@ -14,16 +19,14 @@ var waitOnSocket = true;
 
 // setup the worker
 cluster.setupMaster({
-  exec: './subprocess/worker.js',
+  exec: path.join(__dirname, './subprocess/worker.js'),
   // hush the logs
   silent: true
 });
-reanimate();
 
-cluster.on('disconnect', function(worker) {
+cluster.on('exit', function(worker) {
   waitOnSocket = true;
   worker.kill();
-  reanimate();
 });
 
 var socketObj = io.listen(2718, {
@@ -39,22 +42,59 @@ socketObj.on('connection', function(testSocket) {
     ack(uuidToSend);
 
     waitOnSocket = false;
-
-    runTests();
+    events.emit('worker_connection');
   });
 });
 
 function testModule(testCallbacks) {
   // in order to force syncrounous steps, each test is its own batch
   // not the best use for vows, but works well enough
-  var tests = vows.describe('Worker')
+  var tests = vows.describe('Worker - robustness')
   .addBatch({
-    'Manager tokens': {
+    'Not sending a manager token': {
       topic: function() {
-        cluster.setupMaster({
-          exec: './subprocess/worker.js'
-        });
+        // create a worker
         cluster.fork();
+
+        var self = this;
+        events.once('worker_connection', function() {
+          sendPingJob(uuid(), self.callback);
+        });
+      },
+
+      'fails when a job comes along': function(err, response) {
+        assert.isObject(err);
+        assert.isTrue(err.token_mismatch);
+      }
+    }
+  })
+  .addBatch({
+    'Sending a manager token': {
+      topic: function() {
+        // set a uuid to send along
+        uuidToSend = uuid();
+        // create a worker
+        cluster.fork();
+
+        var self = this;
+        events.once('worker_connection', function() {
+          sendPingJob(uuidToSend, self.callback);
+        });
+      },
+
+      'works with the correct token': function(err) {
+        assert.isUndefined(err);
+      },
+
+      'but with a wrong token': {
+        topic: function() {
+          sendPingJob(uuid(), this.callback);
+        },
+
+        'the worker errors': function(err, response) {
+          assert.isObject(err);
+          assert.isTrue(err.token_mismatch);
+        }
       }
     }
   })
@@ -62,10 +102,13 @@ function testModule(testCallbacks) {
 }
 module.exports = testModule;
 
-// bring a worker back from the dead
-function reanimate() {
-  if (Object.keys(cluster.workers).length > 0) {
-    throw new Error('There are active workers');
-  }
-  cluster.fork();
+function sendPingJob(testToken, callback) {
+  workerSocket.emit('new_job', {
+    id: uuid(),
+    type: 'ping',
+    payload: {},
+    _manager_uuid: testToken
+  }, function(err) {
+    callback(err);
+  });
 }
