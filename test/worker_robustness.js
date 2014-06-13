@@ -26,7 +26,8 @@ cluster.setupMaster({
 
 cluster.on('exit', function(worker) {
   waitOnSocket = true;
-  worker.kill();
+  // hmm, it looks like node 0.8 does not have this method
+  //worker.kill();
 });
 
 var socketObj = io.listen(2718, {
