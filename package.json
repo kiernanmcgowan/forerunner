@@ -1,6 +1,6 @@
 {
   "name": "forerunner",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "forerunner is a distributed job queue framework",
   "license": "MIT",
   "repository": {
