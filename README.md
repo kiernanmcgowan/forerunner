@@ -31,7 +31,7 @@ A worker is a dumb processes that tries to run a set of function in series again
 
 The store is where the state of all jobs are recorded as they pass through forerunner. It has a few method that the manager calls to get or set data, and is relatively straight forward in function.
 
-Forerunner comes with an in-memory store for testing that should not be used for production. There is an implementation for [postgres](https://github.com/dropdownmenu/forerunner-postgres-store), or you can build your own. If you store passes the [store test suite](https://github.com/dropdownmenu/forerunner-store-tests)then it will work with the forerunner system.
+Forerunner comes with an in-memory store for testing that should not be used for production. There is an implementation for [postgres](https://github.com/dropdownmenu/forerunner-postgres-store), or you can build your own. If you store passes the [store test suite](https://github.com/dropdownmenu/forerunner-store-tests) then it will work with the forerunner system.
 
 ### Queue
 
@@ -79,13 +79,13 @@ var forerunnerLocation = 'http://localhost:2718';
 worker.start(forerunnerLocation);
 ```
 
-Running both of these scripts will results in the manager telling the worker to execute the `get_href` task with a given payload. The job is sent off to the worker which will execute the task and return the results to the manager.
+Running both of these scripts will results in the manager telling the worker to execute the `ping` task with a given payload. The job is sent off to the worker which will execute the task and return the results to the manager.
 
 
 Compositing Jobs
 ---
 
-Most of the time jobs will be more complicated than simply fetching the links from a web page and will require multiple steps to complete. Workers have the ability to composite job from existing jobs to create increased complexity in a simple manner.
+Jobs are often complicated and require multiple steps to complete. Workers have the ability to composite job from existing jobs to create increased complexity in a simple manner.
 
 What is powerful about composited jobs is that they are guaranteed to execute in series on a single worker allowing for file manipulation to happen with ease. Composited jobs will fail if any of the steps along the way fail and will return immediately to the manager.
 
