@@ -13,9 +13,9 @@ npm install forerunner
 Forerunner Overview
 ---
 
-![Forerunner System Overview](https://github.com/dropdownmenu/forerunner/blob/master/img/basic_forerunner.jpg)
+![Forerunner System Overview](https://raw.githubusercontent.com/dropdownmenu/forerunner/master/img/basic_forerunner.jpg)
 
-Forerunner is made up of 4 main parts. They are the [manager][https://github.com/dropdownmenu/forerunner/wiki/Manager], [worker][https://github.com/dropdownmenu/forerunner/wiki/Worker], [store][https://github.com/dropdownmenu/forerunner/wiki/Store], and [queue][https://github.com/dropdownmenu/forerunner/wiki/Queue]. More detailed information can be found in the [wiki][https://github.com/dropdownmenu/forerunner/wiki].
+Forerunner is made up of 4 main parts. They are the [manager](https://github.com/dropdownmenu/forerunner/wiki/Manager), [worker](https://github.com/dropdownmenu/forerunner/wiki/Worker), [store](https://github.com/dropdownmenu/forerunner/wiki/Store), and [queue](https://github.com/dropdownmenu/forerunner/wiki/Queue). More detailed information can be found in the [wiki](https://github.com/dropdownmenu/forerunner/wiki).
 
 ### Manager
 
@@ -31,13 +31,13 @@ A worker is a dumb processes that tries to run a set of function in series again
 
 The store is where the state of all jobs are recorded as they pass through forerunner. It has a few method that the manager calls to get or set data, and is relatively straight forward in function.
 
-Forerunner comes has an in-memory store for testing that should not be used for production. There is an implementation for [postgres][https://github.com/dropdownmenu/forerunner-postgres-store], or you can build your own. If you store passes the [store test suite][https://github.com/dropdownmenu/forerunner-store-tests]then it will work with the forerunner system.
+Forerunner comes has an in-memory store for testing that should not be used for production. There is an implementation for [postgres](https://github.com/dropdownmenu/forerunner-postgres-store), or you can build your own. If you store passes the [store test suite](https://github.com/dropdownmenu/forerunner-store-tests)then it will work with the forerunner system.
 
 ### Queue
 
 The queue is ephemeral and responsible for managing the order of jobs as they are send out to workers. Queues can be simple FIFO, random sampled, or weighted against some function that determines importance.
 
-Forerunner comes has an in-memory queue for testing that should not be used for production. There is a FIFO implementation in [redis][https://github.com/dropdownmenu/forerunner-redis-queue], or you can build your own. If your queue passes the [queue test suite][https://github.com/dropdownmenu/forerunner-queue-tests] then it will work with the forerunner system.
+Forerunner comes has an in-memory queue for testing that should not be used for production. There is a FIFO implementation in [redis](https://github.com/dropdownmenu/forerunner-redis-queue), or you can build your own. If your queue passes the [queue test suite](https://github.com/dropdownmenu/forerunner-queue-tests) then it will work with the forerunner system.
 
 Basic Example
 ---
