@@ -5,12 +5,39 @@ forerunner
 
 forerunner is a distributed job queue framework. It consists of a central job queue and a pool of workers that can be configured to take on a wide variety of jobs. Workers can be spun up and down independent of the manager, allowing for your platform to meet your specific demands.
 
-forerunner has a growing set of builtin jobs, the ability to define your own, and the power to composite many jobs together. This flexibility allows for a wide variety of tasks to be undertaken with ease and efficiency.
-
 ```
 npm install forerunner
 ```
 
+
+Forerunner Overview
+---
+
+![Forerunner System Overview](https://github.com/dropdownmenu/forerunner/blob/master/img/basic_forerunner.jpg)
+
+Forerunner is made up of 4 main parts. They are the [manager][https://github.com/dropdownmenu/forerunner/wiki/Manager], [worker][https://github.com/dropdownmenu/forerunner/wiki/Worker], [store][https://github.com/dropdownmenu/forerunner/wiki/Store], and [queue][https://github.com/dropdownmenu/forerunner/wiki/Queue]. More detailed information can be found in the [wiki][https://github.com/dropdownmenu/forerunner/wiki].
+
+### Manager
+
+The manager is the centerpiece to forerunner. It is responsible for having a publicly facing API, sending jobs off to workers, and routing jobs between the store and queue.
+
+###  Worker
+
+Worker processes is where the majority of your code is going to live.
+
+A worker is a dumb processes that tries to run a set of function in series against a given job. If they succeed then the result of the callback is sent to the manager, and the job is marked as complete. Otherwise, if an error is thrown or returned in a callback then the error is returned to the manager, with the job being re-queued for later processing.
+
+### Store
+
+The store is where the state of all jobs are recorded as they pass through forerunner. It has a few method that the manager calls to get or set data, and is relatively straight forward in function.
+
+Forerunner comes has an in-memory store for testing that should not be used for production. There is an implementation for [postgres][https://github.com/dropdownmenu/forerunner-postgres-store], or you can build your own. If you store passes the [store test suite][https://github.com/dropdownmenu/forerunner-store-tests]then it will work with the forerunner system.
+
+### Queue
+
+The queue is ephemeral and responsible for managing the order of jobs as they are send out to workers. Queues can be simple FIFO, random sampled, or weighted against some function that determines importance.
+
+Forerunner comes has an in-memory queue for testing that should not be used for production. There is a FIFO implementation in [redis][https://github.com/dropdownmenu/forerunner-redis-queue], or you can build your own. If your queue passes the [queue test suite][https://github.com/dropdownmenu/forerunner-queue-tests] then it will work with the forerunner system.
 
 Basic Example
 ---
