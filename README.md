@@ -3,7 +3,7 @@ forerunner
 
 [![Build Status](https://travis-ci.org/dropdownmenu/forerunner.png?branch=master)](https://travis-ci.org/dropdownmenu/forerunner)
 
-forerunner is a distributed job queue framework. It consists of a central job queue and a pool of workers that can be configured to take on a wide variety of jobs. Workers can be spun up and down independent of the manager, allowing for your platform to meet your specific demands.
+Forerunner is a distributed job queue framework. It consists of a central job queue and a pool of workers that can be configured to take on a wide variety of jobs. Workers can be spun up and down independent of the manager, allowing your platform to meet your specific demands.
 
 ```
 npm install forerunner
@@ -15,34 +15,34 @@ Forerunner Overview
 
 ![Forerunner System Overview](https://raw.githubusercontent.com/dropdownmenu/forerunner/master/img/basic_forerunner.jpg)
 
-Forerunner is made up of 4 main parts. They are the [manager](https://github.com/dropdownmenu/forerunner/wiki/Manager), [worker](https://github.com/dropdownmenu/forerunner/wiki/Worker), [store](https://github.com/dropdownmenu/forerunner/wiki/Store), and [queue](https://github.com/dropdownmenu/forerunner/wiki/Queue). More detailed information can be found in the [wiki](https://github.com/dropdownmenu/forerunner/wiki).
+Forerunner is made up of four main parts. They are the [manager](https://github.com/dropdownmenu/forerunner/wiki/Manager), [worker](https://github.com/dropdownmenu/forerunner/wiki/Worker), [store](https://github.com/dropdownmenu/forerunner/wiki/Store), and [queue](https://github.com/dropdownmenu/forerunner/wiki/Queue). More detailed information can be found in the [wiki](https://github.com/dropdownmenu/forerunner/wiki).
 
 ### Manager
 
-The manager is the centerpiece to forerunner. It is responsible for having a publicly facing API, sending jobs off to workers, and routing jobs between the store and queue.
+The manager is the centerpiece of forerunner. It is responsible for having a publicly facing API, assigning jobs to workers, and routing jobs between the store and queue.
 
 ###  Worker
 
-Worker processes is where the majority of your code is going to live.
+Worker processes are where the majority of your custom code is going to live.
 
-A worker is a dumb processes that tries to run a set of function in series against a given job. If they succeed then the result of the callback is sent to the manager, and the job is marked as complete. Otherwise, if an error is thrown or returned in a callback then the error is returned to the manager, with the job being re-queued for later processing.
+A worker is a simple process that tries to run a set of predefined tasks (functions) in series for a given job. If all the tasks succeed, then the result of the callback is sent to the manager and the job is marked as complete. Otherwise, if an error is thrown or returned in a callback, then the error is returned to the manager, with the job optionally being re-queued for later processing.
 
 ### Store
 
-The store is where the state of all jobs are recorded as they pass through forerunner. It has a few method that the manager calls to get or set data, and is relatively straight forward in function.
+The store is where the state of all jobs are recorded as they are processed by forerunner. It has a few methods that the manager calls to get or set data, and it is relatively straight forward in function.
 
-Forerunner comes with an in-memory store for testing that should not be used for production. There is an implementation for [postgres](https://github.com/dropdownmenu/forerunner-postgres-store), or you can build your own. If you store passes the [store test suite](https://github.com/dropdownmenu/forerunner-store-tests) then it will work with the forerunner system.
+Forerunner comes with an in-memory store for testing that should not be used for production. There is an store implementation for [postgres](https://github.com/dropdownmenu/forerunner-postgres-store). You can also build your own custom store. If your store passes the [store test suite](https://github.com/dropdownmenu/forerunner-store-tests), then it will work with the forerunner system.
 
 ### Queue
 
-The queue is ephemeral and responsible for managing the order of jobs as they are send out to workers. Queues can be simple FIFO, random sampled, or weighted against some function that determines importance.
+The queue is ephemeral and responsible for managing the order of jobs as they are sent out to workers. Queues can be simple FIFO, random sampled, or weighted against some function that determines importance.
 
-Forerunner comes with an in-memory queue for testing that should not be used for production. There is a FIFO implementation in [redis](https://github.com/dropdownmenu/forerunner-redis-queue), or you can build your own. If your queue passes the [queue test suite](https://github.com/dropdownmenu/forerunner-queue-tests) then it will work with the forerunner system.
+Forerunner comes with an in-memory queue for testing that should not be used for production. There is a FIFO queue implementation for [redis](https://github.com/dropdownmenu/forerunner-redis-queue). You can also build your own custom queue. If your queue passes the [queue test suite](https://github.com/dropdownmenu/forerunner-queue-tests) then it will work with the forerunner system.
 
 Basic Example
 ---
 
-The forerunner platform is made up of two main parts, the manager and the worker pool. They always run as different processes.
+The forerunner platform is made up of two main pieces, the manager and the worker pool. They always run as different processes.
 
 ```
 // manager
@@ -79,15 +79,15 @@ var forerunnerLocation = 'http://localhost:2718';
 worker.start(forerunnerLocation);
 ```
 
-Running both of these scripts will results in the manager telling the worker to execute the `ping` task with a given payload. The job is sent off to the worker which will execute the task and return the results to the manager.
+Running both of these scripts will result in the manager telling the worker to execute the `ping` task with a given payload. The job is sent off to the worker which executes the task and returns the results to the manager.
 
 
 Compositing Jobs
 ---
 
-Jobs are often complicated and require multiple steps to complete. Workers have the ability to composite job from existing jobs to create increased complexity in a simple manner.
+Jobs are often complicated and require multiple steps to complete. Workers have the ability to composite jobs from existing jobs to create more complex jobs in a simple manner.
 
-What is powerful about composited jobs is that they are guaranteed to execute in series on a single worker allowing for file manipulation to happen with ease. Composited jobs will fail if any of the steps along the way fail and will return immediately to the manager.
+What is powerful about composited jobs is that they are guaranteed to execute in series on a single worker, which makes them very predictable and easy to work with. Composited jobs will fail if any of the steps along the way fail and will return immediately to the manager.
 
 ```
 // this example will create a new job that will download a set of files
@@ -127,7 +127,7 @@ worker.registerJobHandler('download_and_archive', composedJob);
 Custom Jobs
 ---
 
-Jobs can take on many different shapes and sizes and can be built to what ever your specific tasks require.
+Jobs can take on many different shapes and sizes and can be created for whatever your specific requirements are.
 
 A job is a function that has the following pattern:
 
