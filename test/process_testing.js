@@ -2,7 +2,7 @@
 var cluster = require('cluster');
 var _ = require('underscore');
 var io = require('socket.io');
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 var async = require('async');
 
 // setup the worker
